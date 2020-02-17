@@ -3,9 +3,85 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>SafeChat</title>
+
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+		<main>
+			<div class="wrapper">
+				<!-- Sidebar Section -->
+				<section class="sideBar">
+					<!-- Channel List -->
+					<div class="channel">
+						<h3>Channel</h3>
+						<ul>
+							<li># general</li>
+							<li># memes</li>
+						</ul>
+					</div>
+
+					<!-- Friends List -->
+					<div class="friends">
+						<h3>Friends</h3>
+						<ul>
+							<li>
+								<img src="images/orlando-diggs.png" alt="" class="avatar" />
+								<p>Orlando Diggs</p>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Bots List -->
+					<div class="bots">
+						<h3>Bots</h3>
+						<ul>
+							<img src="images/safechat-avatar.png" alt="" class="avatar" />
+							<li>SafeChat</li>
+						</ul>
+					</div>
+				</section>
+
+				<!-- Chat Section -->
+				<section class="chat">
+					<!-- Chat Infomration: Channel Name, Search, etc. -->
+					<div class="chatInfo">
+						<h2>#general</h2>
+					</div>
+					<div class="chatThread">
+						<div class="messageContainer">
+							<img src="images/aada-laine.png" alt="" class="avatar" />
+
+							<div class="message">
+								<div class="messageInfo">
+									<p class="user">Aada Laine</p>
+									<p class="time">11:45PM</p>
+								</div>
+								<div class="messageContent">
+									<p>
+										@har_adams wow it’s amazing, I want to buy a van and
+										travelling next year
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="chatInput">
+						<form>
+							<input type="text" placeholder="What do you want to say?" />
+							<button>Generate Message</button>
+							<button>Send</button>
+						</form>
+					</div>
+				</section>
+			</div>
+		</main>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="script.js"></script>
 	</body>

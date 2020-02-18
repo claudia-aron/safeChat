@@ -10,52 +10,74 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
+		<link type="image/png" href="images/favicon.png" rel="icon" />
 	</head>
 	<body>
-		<main>
-			<div class="wrapper">
-				<!-- Sidebar Section -->
-				<section class="sideBar">
+		<a href="#maincontent" class="visuallyHidden">Skip to main content</a>
+		<!-- Header-->
+		<header>
+			<img class="logo" src="images/logo.png" alt="SafeChat logo" />
+			<h1>SafeChat</h1>
+		</header>
+		<div class="container">
+			<!-- Side bar -->
+			<aside>
+				<div class="sideBarWrapper">
+					<h2>Juno College</h2>
 					<!-- Channel List -->
-					<div class="channel">
+					<div id="maincontent" class="channel">
 						<h3>Channel</h3>
 						<ul>
 							<li># general</li>
 							<li># memes</li>
 						</ul>
 					</div>
-
 					<!-- Friends List -->
 					<div class="friends">
 						<h3>Friends</h3>
 						<ul>
 							<li>
-								<img src="images/orlando-diggs.png" alt="" class="avatar" />
+								<img
+									src="images/orlando-diggs.png"
+									alt="Photo of a brown-haired man"
+									class="avatar"
+								/>
 								<p>Orlando Diggs</p>
 							</li>
 						</ul>
 					</div>
-
 					<!-- Bots List -->
 					<div class="bots">
 						<h3>Bots</h3>
 						<ul>
-							<img src="images/safechat-avatar.png" alt="" class="avatar" />
-							<li>SafeChat</li>
+							<li>
+								<img
+									src="images/safechat-avatar.png"
+									alt="Safechat icon"
+									class="avatar"
+								/>
+								<p>SafeChat</p>
+							</li>
 						</ul>
 					</div>
-				</section>
-
-				<!-- Chat Section -->
-				<section class="chat">
-					<!-- Chat Infomration: Channel Name, Search, etc. -->
+				</div>
+			</aside>
+			<!-- Main -->
+			<main>
+				<!-- Chat Information: Channel Name, Search, etc. -->
+				<div class="chatTopSection">
 					<div class="chatInfo">
-						<h2>#general</h2>
+						<div class="chatWrapper">
+							<h2>#general</h2>
+						</div>
 					</div>
-					<div class="chatThread">
+					<div class="chatThread chatWrapper">
 						<div class="messageContainer">
-							<img src="images/aada-laine.png" alt="" class="avatar" />
-
+							<img
+								src="images/aada-laine.png"
+								alt="Photo of a blonde woman with a black hat"
+								class="avatar"
+							/>
 							<div class="message">
 								<div class="messageInfo">
 									<p class="user">Aada Laine</p>
@@ -70,17 +92,22 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="chatInput">
-						<form>
-							<input type="text" placeholder="What do you want to say?" />
-							<button>Generate Message</button>
-							<button>Send</button>
-						</form>
-					</div>
-				</section>
-			</div>
-		</main>
+				</div>
+				<div class="chatInput">
+					<form class="chatWrapper">
+						<input type="text" placeholder="What do you want to say?" />
+						<div class="buttonContainer">
+							<button class="generate">Generate Message</button>
+							<button class="send">Send</button>
+						</div>
+					</form>
+				</div>
+			</main>
+		</div>
+		<!-- Footer -->
+		<footer>
+			<p>© 2020 Aron Tolentino & Claudia Ahn</p>
+		</footer>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="script.js"></script>

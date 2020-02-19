@@ -9,109 +9,136 @@
 			href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+		/>
+
 		<link rel="stylesheet" href="styles.css" />
 		<link type="image/png" href="images/favicon.png" rel="icon" />
 	</head>
 	<body>
-		<a href="#maincontent" class="visuallyHidden">Skip to main content</a>
-		<!-- Header-->
-		<header>
-			<img class="logo" src="images/logo.png" alt="SafeChat logo" />
-			<h1>SafeChat</h1>
-		</header>
-		<div class="container">
-			<!-- Side bar -->
-			<aside>
-				<div class="sideBarWrapper">
-					<h2>Juno College</h2>
-					<!-- Channel List -->
-					<div id="maincontent" class="channel">
-						<h3>Channel</h3>
-						<ul>
-							<li># general</li>
-							<li># memes</li>
-						</ul>
-					</div>
-					<!-- Friends List -->
-					<div class="friends">
-						<h3>Friends</h3>
-						<ul>
-							<li>
-								<img
-									src="images/orlando-diggs.png"
-									alt="Photo of a brown-haired man"
-									class="avatar"
-								/>
-								<p>Orlando Diggs</p>
-							</li>
-						</ul>
-					</div>
-					<!-- Bots List -->
-					<div class="bots">
-						<h3>Bots</h3>
-						<ul>
-							<li>
-								<img
-									src="images/safechat-avatar.png"
-									alt="Safechat icon"
-									class="avatar"
-								/>
-								<p>SafeChat</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</aside>
-			<!-- Main -->
-			<main>
-				<!-- Chat Information: Channel Name, Search, etc. -->
-				<div class="chatSection">
-					<div class="chatInfo">
-						<div class="chatWrapper">
-							<h2>#general</h2>
-						</div>
-					</div>
-					<div class="chatThread chatWrapper">
-						<div class="messageContainer">
-							<img
-								src="images/aada-laine.png"
-								alt="Photo of a blonde woman with a black hat"
-								class="avatar"
-							/>
-							<div class="message">
-								<div class="messageInfo">
-									<p class="user">Aada Laine</p>
-									<p class="time">11:45PM</p>
-								</div>
-								<div class="messageContent">
-									<p>
-										@har_adams wow it’s amazing, I want to buy a van and
-										travelling next year
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="chatInput">
-					<form class="chatWrapper">
-						<input
-							type="text"
-							class="inputMessage"
-							placeholder="What do you want to say?"
+		<!-- <a href="#maincontent" class="visuallyHidden">Skip to main content</a> -->
+		<!-- Side bar -->
+		<aside class="sideBar">
+			<i class="fas fa-times closeMenu"></i>
+			<h1>Juno College</h1>
+			<!-- Channel List -->
+			<div class="channels">
+				<h3>Channel</h3>
+				<ul>
+					<li><p># general</p></li>
+					<li><p># memes</p></li>
+				</ul>
+			</div>
+			<!-- Friends List -->
+			<div class="friends">
+				<h3>Friends</h3>
+				<ul>
+					<li>
+						<img
+							src="images/orlando-diggs.png"
+							alt="Photo of a brown-haired man"
+							class="avatar"
 						/>
-						<div class="buttonContainer">
-							<button class="generate">Generate Message</button>
-							<button class="send">Send</button>
+						<p>Orlando Diggs</p>
+					</li>
+					<li>
+						<img
+							src="images/orlando-diggs.png"
+							alt="Photo of a brown-haired man"
+							class="avatar"
+						/>
+						<p>Orlando Diggs</p>
+					</li>
+				</ul>
+			</div>
+			<!-- Bots List -->
+			<div class="bots">
+				<h3>Bots</h3>
+				<ul>
+					<li>
+						<img
+							src="images/safechat-avatar.png"
+							alt="Safechat icon"
+							class="avatar"
+						/>
+						<p>SafeChat</p>
+					</li>
+				</ul>
+			</div>
+		</aside>
+
+		<!-- Main -->
+		<main class="chat">
+			<!-- Chat Information: Channel Name, Search, etc. -->
+			<div class="chatInfo">
+				<i class="fas fa-arrows-alt-h toggle"></i>
+				<h2>#general</h2>
+			</div>
+			<div class="chatThread">
+				<div class="messageContainer">
+					<img
+						src="images/aada-laine.png"
+						alt="Photo of a blonde woman with a black hat"
+						class="avatar"
+					/>
+					<div class="message">
+						<div class="messageInfo">
+							<p class="user">Aada Laine</p>
+							<p class="time">11:45PM</p>
 						</div>
-					</form>
+						<div class="messageContent">
+							<p>
+								@har_adams wow it’s amazing, I want to buy a van and travelling
+								next year
+							</p>
+						</div>
+					</div>
 				</div>
-			</main>
-		</div>
-		<!-- Footer -->
-		<footer>
-			<p>© 2020 Aron Tolentino & Claudia Ahn</p>
-		</footer>
+
+				<div class="messageContainer">
+					<img
+						src="images/aada-laine.png"
+						alt="Photo of a blonde woman with a black hat"
+						class="avatar"
+					/>
+					<div class="message">
+						<div class="messageInfo">
+							<p class="user">Aada Laine</p>
+							<p class="time">11:45PM</p>
+						</div>
+						<div class="messageContent">
+							<p>
+								@har_adams wow it’s amazing, I want to buy a van and travelling
+								next year
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatInput">
+				<form class="chatWrapper">
+					<textarea
+						name="inputMessage"
+						class="inputMessage"
+						placeholder="What do you want to say?"
+						id=""
+						cols="30"
+						rows="2"
+					></textarea>
+					<!-- <input
+						type="text"
+						class="inputMessage"
+						placeholder="What do you want to say?"
+					/> -->
+					<div class="buttonContainer">
+						<button class="generate">Generate Message</button>
+						<button class="send">Send</button>
+					</div>
+				</form>
+			</div>
+		</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>

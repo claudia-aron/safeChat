@@ -1,5 +1,21 @@
 $(document).ready(function() {
 	///================================///
+	// Event listener for collapsing sidebar
+	///================================///
+
+	$('.toggle').on('click', function() {
+		$('.sideBar').toggle();
+	});
+
+	///================================///
+	// Event listener for closing opened sidebar
+	///================================///
+
+	$('.closeMenu').on('click', function() {
+		$('.sideBar').toggle();
+	});
+
+	///================================///
 	// Event listener for submit button
 	///================================///
 
@@ -80,6 +96,11 @@ $(document).ready(function() {
 
 			model.classify(sentences).then(predictions => {
 				console.log(predictions);
+
+				for (const prediction in predictions) {
+					// console.log(prediction.results[0].probabilities[1]);
+					console.log();
+				}
 
 				$('.chatThread').append(
 					`

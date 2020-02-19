@@ -189,8 +189,8 @@ ul,
 ol,
 a {
 	text-decoration: none;
-	list-style: none;
 	color: inherit;
+	list-style: none;
 }
 
 /************************/
@@ -198,138 +198,170 @@ a {
 /************************/
 
 html {
-	font-size: 100%;
+	/* Set to 62.5% in order to use REM units which adapts to browser zoom settings */
+	/* 62.5% sets base font to 10px */
+	font-size: 62.5%;
 	font-family: 'Lato', sans-serif;
-	color: #393e41;
 }
 
-.container {
+body {
 	display: flex;
-	justify-content: center;
 }
 
 .avatar {
-	width: 35px;
-	height: 35px;
-	margin-right: 7px;
+	width: 3.5rem;
+	height: 3.5rem;
+	margin-right: 1rem;
 }
+
 /***********************************/
 /************** HEADER *************/
 /***********************************/
+
 header {
 	background-color: #393e41;
 	color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 15px;
+	padding: 1.5rem;
 }
 
 .logo {
-	width: 35px;
-	margin-right: 5px;
+	width: 3.5rem;
+	margin-right: 0.5rem;
 }
 
 h1 {
-	font-size: 35px;
+	font-size: 2.2rem;
 }
 
 h2 {
-	font-size: 25px;
+	font-size: 2.2rem;
+}
+
+h3 {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+}
+
+p,
+input,
+textarea,
+button {
+	font-size: 1.4rem;
 }
 
 /***********************************/
 /********* SIDEBAR SECTION *********/
 /***********************************/
 
-aside {
-	width: 20%;
-	min-height: 90vh;
-	background-color: #8bbfb8;
+.sideBar {
+	width: 30rem;
+	height: 100vh;
+	background-color: #67008d;
+	color: #fff;
+	padding: 3.5rem 2.5rem;
 }
 
-.sideBarWrapper {
-	width: 80%;
-	max-width: 500px;
-	margin: 0 auto;
+.closeMenu {
+	display: none;
 }
 
-aside h2 {
-	padding: 25px 0 16px;
+.channels,
+.friends,
+.bots {
+	margin-bottom: 3.5rem;
 }
 
-h3 {
-	font-size: 18px;
-	text-transform: uppercase;
-	margin: 30px 0 10px;
+.sideBar h1 {
+	font-size: 2rem;
+	margin-bottom: 3.5rem;
 }
 
-.channel li {
-	line-height: 25px;
-	transition: color 0.3s linear;
+.sideBar h3 {
+	color: #919191;
+	margin-bottom: 1rem;
 }
 
-.friends li,
-.bots li {
+.sideBar li {
+	margin-left: 2rem;
 	display: flex;
 	align-items: center;
-	transition: color 0.3s linear;
+	padding: 0.6rem 0;
 }
 
-.channel li:hover,
-.channel li:focus,
-.friends li:hover,
-.friends li:focus,
-.bots li:hover,
-.bots li:focus {
-	color: #fff;
+.friends ul,
+.bots ul {
+	position: relative;
+}
+
+.friends li:before,
+.bots li:before {
+	content: '';
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 50%;
+	background: #70cc16;
+	position: absolute;
+	left: 0;
 }
 
 /********************************/
 /********* CHAT SECTION *********/
 /********************************/
 
-main {
-	width: 80%;
-	min-height: 90vh;
-	background-color: #d6cfca;
-	line-height: 20px;
+.toggle {
+	font-size: 2rem;
+	background: #7899ff;
+	padding: 10px;
+	border-radius: 50%;
+	position: absolute;
+	top: 108px;
+	left: -20px;
+	color: #fff;
+	z-index: 100;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.chat {
+	height: 100vh;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-.chatWrapper {
-	width: 95%;
-	max-width: 1300px;
-	margin: 0 auto;
-}
-
-main h2 {
-	padding: 25px 0;
-}
-
 .chatInfo {
-	border-bottom: 1px solid #fff;
+	border-bottom: 0.5px solid #d5d5d5;
+	padding: 3.5rem 2.5rem 2rem 2.5rem;
+	position: relative;
 }
 
 .chatThread {
-	margin-top: 30px;
+	padding: 2.5rem;
+	height: 100vh;
+	border-bottom: 0.5px solid #d5d5d5;
 }
 
 .messageContainer {
 	display: flex;
 	align-items: center;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2rem;
 }
 
 .messageInfo {
 	display: flex;
+	margin-bottom: 0.3rem;
+}
+
+.user {
+	font-weight: 700;
+	margin-right: 1rem;
 }
 
 .chatInput {
-	border-top: 1px solid #fff;
-	padding: 30px 0;
+	padding: 2.5rem 2.5rem;
 }
 
 form {
@@ -337,34 +369,73 @@ form {
 	justify-content: space-between;
 }
 
-input {
-	width: 50%;
+.inputMessage {
+	width: 100%;
+	margin-right: 1rem;
+	resize: none;
+}
+
+.buttonContainer {
+	flex: 0 0 auto;
 }
 
 button {
-	border-radius: 5px;
-	background-color: #8bbfb8;
+	border-radius: 0.5rem;
+	background-color: #cb78ea;
 	color: #fff;
-	padding: 10px;
-	transition: all 0.5s linear;
+	padding: 1rem 2rem;
+	transition: all 0.2s linear;
 }
 
 button:hover,
 button:focus {
-	color: #8bbfb8;
-	background-color: #fff;
+	background-color: #8000b0;
+}
+
+.generate {
+	background-color: #d1d1d1;
 }
 
 .send {
-	margin-left: 10px;
+	margin-left: 1rem;
 }
+
 /********************************/
-/************ FOOTER ************/
+/********* MEDIA QUERIES *********/
 /********************************/
-footer {
-	background-color: #393e41;
-	color: #d6cfca;
-	padding: 10px;
-	text-align: right;
-	font-size: 13px;
+
+@media only screen and (max-width: 425px) {
+	.sideBar {
+		position: absolute;
+		z-index: 102;
+		display: none;
+	}
+
+	.closeMenu {
+		position: absolute;
+		position: absolute;
+		right: 25px;
+		font-size: 2.5rem;
+		top: 25px;
+		transition: 0.2s all;
+		display: block;
+	}
+
+	.closeMenu:hover {
+		color: #7899ff;
+	}
+
+	.chatWrapper {
+		flex-direction: column;
+	}
+
+	.inputMessage {
+		margin-bottom: 1.5rem;
+	}
+}
+
+@media only screen and (min-width: 426px) {
+	.sidebar {
+		display: block;
+	}
 }

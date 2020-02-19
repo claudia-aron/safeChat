@@ -65,7 +65,7 @@
 			<!-- Main -->
 			<main>
 				<!-- Chat Information: Channel Name, Search, etc. -->
-				<div class="chatTopSection">
+				<div class="chatSection">
 					<div class="chatInfo">
 						<div class="chatWrapper">
 							<h2>#general</h2>
@@ -95,7 +95,11 @@
 				</div>
 				<div class="chatInput">
 					<form class="chatWrapper">
-						<input type="text" placeholder="What do you want to say?" />
+						<input
+							type="text"
+							class="inputMessage"
+							placeholder="What do you want to say?"
+						/>
 						<div class="buttonContainer">
 							<button class="generate">Generate Message</button>
 							<button class="send">Send</button>
@@ -109,6 +113,8 @@
 			<p>© 2020 Aron Tolentino & Claudia Ahn</p>
 		</footer>
 
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="script.js"></script>
 	</body>

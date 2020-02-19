@@ -320,6 +320,7 @@ main h2 {
 .messageContainer {
 	display: flex;
 	align-items: center;
+	margin-bottom: 1.5rem;
 }
 
 .messageInfo {

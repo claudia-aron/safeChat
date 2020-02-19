@@ -1,20 +1,27 @@
 $(document).ready(function() {
-	console.log('ready!');
 	///================================///
 	// Event listener for submit button
 	///================================///
 
-	$('.send').on('click', function() {
-		// Store input value to variable called comment
-		// Call classifyComment(comment)
+	$('.send').on('click', function(e) {
+		// Store input value to variable called message
+		e.preventDefault();
+		const message = $('.inputMessage').val();
+		console.log(message);
+
+		// Call classifyMessage() with store variable
+		classifyMessage(message);
 	});
 
 	///================================///
 	// Event listener for generate button
 	///================================///
 
-	$('.send').on('click', function() {
+	$('.generate').on('click', function(e) {
+		e.preventDefault();
+
 		// Call getRandomSentence()
+		getRandomSentence();
 	});
 
 	///=========================================================================================///
@@ -28,42 +35,91 @@ $(document).ready(function() {
 		// If random number is 2 then call get Insulty()
 		//// Store returned value to a variable called randomSentence
 		// Replace the input value to the value of randomSentence
-	}
 
-	///========================================================================///
-	// Function for making an API request to Complementr API (getCompliment())
-	///========================================================================///
+		const randomNumber = Math.floor(Math.random() * 2) + 1;
 
-	function getCompliment() {
-		// AJAX request to https://complimentr.com/api
-		// Wait for response
-		// Return response
-	}
+		console.log(randomNumber);
 
-	///===============================================================///
-	// Function for making an API request to Insult API (getInsult())
-	///===============================================================///
+		if (randomNumber === 1) {
+			$.ajax({
+				url: 'https://complimentr.com/api',
+				method: 'GET',
+				dataType: 'json'
+			}).then(function(res) {
+				const randomCompliment = res.compliment;
 
-	function getInsult() {
-		// AJAX request to https://evilinsult.com/generate_insult.php?lang=en&type=json
-		// Wait for response
-		// Return response
+				// Replace input value with random compliment
+				$('.inputMessage').val(randomCompliment);
+			});
+		} else {
+			$.ajax({
+				url: 'https://amused.api.stdlib.com/insult@1.0.0/',
+				method: 'GET',
+				dataType: 'json'
+			}).then(function(res) {
+				const randomInsult = res;
+				// Replace input value with random compliment
+				$('.inputMessage').val(randomInsult);
+			});
+		}
 	}
 
 	///========================================================================///
 	// Function for making an API request to Tensorflow.js (classifyComment())
 	///========================================================================///
 
-	function classifyComment() {
-		// Set prediction threshold
-		// Load tensorflow model
-		// Pass on parameter to model
-		// Wait for response
-		// Loop through response
-		//// if probabilty is higher than 40
-		////// Notify user of type of toxcity
-		////// Notify user to try again
-		//// if probabilty is lower than 40
-		////// Add comment to the comment board
+	// WORKING TENSOR FLOW
+	function classifyMessage(message) {
+		// The minimum prediction confidence.
+		const threshold = 0.9;
+
+		// Load the model. Users optionally pass in a threshold and an array of
+		// labels to include.
+		toxicity.load(threshold).then(model => {
+			const sentences = [message];
+
+			model.classify(sentences).then(predictions => {
+				console.log(predictions);
+
+				$('.chatThread').append(
+					`
+						<div class="messageContainer">
+							<img
+								src="images/aada-laine.png"
+								alt="Photo of a blonde woman with a black hat"
+								class="avatar"
+							/>
+							<div class="message">
+								<div class="messageInfo">
+									<p class="user">Aada Laine</p>
+									<p class="time">11:45PM</p>
+								</div>
+								<div class="messageContent">
+									<p>
+										@har_adams wow it’s amazing, I want to buy a van and
+										travelling next year
+									</p>
+								</div>
+							</div>
+						</div>
+					`
+				);
+			});
+		});
 	}
 });
+
+// `You could be ‘cyberbullying’ someone, as it is ${toxicityType}.`
+
+// Explanation of toxicity
+// identity attack:
+// insult:
+// obscene:
+// severe toxicity:
+// sexual explicit:
+// threat:
+// toxicity:
+
+// Bad example
+// Better recommendation
+// Give it another thought and try again.

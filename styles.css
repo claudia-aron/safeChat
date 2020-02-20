@@ -341,18 +341,22 @@ button {
 .chatThread {
 	padding: 2.5rem;
 	height: 100vh;
+	overflow-y: scroll;
 	border-bottom: 0.5px solid #d5d5d5;
 }
 
 .messageContainer {
 	display: flex;
-	align-items: center;
 	margin-bottom: 2rem;
 }
 
 .messageInfo {
 	display: flex;
-	margin-bottom: 0.3rem;
+	margin-bottom: 0.2rem;
+}
+
+.messageContent p {
+	margin-bottom: 1rem;
 }
 
 .user {
@@ -427,6 +431,11 @@ button:focus {
 
 	.chatWrapper {
 		flex-direction: column;
+	}
+
+	.buttonContainer {
+		display: flex;
+		justify-content: flex-end;
 	}
 
 	.inputMessage {

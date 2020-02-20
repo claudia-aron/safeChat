@@ -86,61 +86,159 @@ $(document).ready(function() {
 
 	// WORKING TENSOR FLOW
 	function classifyMessage(message) {
-		// The minimum prediction confidence.
-		const threshold = 0.9;
+		const threshold = 0.2;
 
-		// Load the model. Users optionally pass in a threshold and an array of
-		// labels to include.
 		toxicity.load(threshold).then(model => {
-			const sentences = [message];
+			const messages = [message];
 
-			model.classify(sentences).then(predictions => {
-				console.log(predictions);
+			model
+				.classify(messages)
+				.then(predictions => {
+					const toxicityFound = [];
 
-				for (const prediction in predictions) {
-					// console.log(prediction.results[0].probabilities[1]);
-					console.log();
-				}
+					for (const prediction of predictions) {
+						// console.log(prediction.results[0].probabilities[1]);
+						const toxicityType = prediction.label;
+						const toxicityProbability =
+							prediction.results[0].probabilities[1] * 100;
 
-				$('.chatThread').append(
-					`
-						<div class="messageContainer">
-							<img
-								src="images/aada-laine.png"
-								alt="Photo of a blonde woman with a black hat"
-								class="avatar"
-							/>
-							<div class="message">
-								<div class="messageInfo">
-									<p class="user">Aada Laine</p>
-									<p class="time">11:45PM</p>
+						if (toxicityProbability > 20) {
+							toxicityFound.push(toxicityType);
+						}
+						console.log(`${toxicityType}: ${toxicityProbability}%`);
+					}
+
+					return toxicityFound;
+				})
+				.then(toxicityFound => {
+					console.log(toxicityFound);
+
+					if (toxicityFound.length === 0) {
+						$('.chatThread').append(
+							`
+								<div class="messageContainer">
+									<img
+										src="images/orlando-diggs.png"
+										alt="Photo of a blonde woman with a black hat"
+										class="avatar"
+									/>
+									<div class="message">
+										<div class="messageInfo">
+											<p class="user">Aron Tolentino</p>
+											<p class="time">11:45PM</p>
+										</div>
+										<div class="messageContent">
+											<p>
+												${messages[0]}
+											</p>
+										</div>
+									</div>
 								</div>
-								<div class="messageContent">
-									<p>
-										@har_adams wow it’s amazing, I want to buy a van and
-										travelling next year
-									</p>
+							`
+						);
+
+						$('.chatThread').scrollTop($('.chatThread').height() + 500);
+					} else {
+						$('.chatThread').append(
+							`
+								<div class="messageContainer">
+									<img
+										src="images/safechat-avatar.png"
+										alt="Photo of a blonde woman with a black hat"
+										class="avatar"
+									/>
+									<div class="message">
+										<div class="messageInfo">
+											<p class="user">SafeChat Bot</p>
+											<p class="time">11:45PM</p>
+										</div>
+										<div class="messageContent">
+											<p>
+												Oh no! It looks like you're about to say something that would make other people uncomfortable...
+											</p>
+											<p>
+											<em>"${messages[0]}"</em> contains the following:
+											</p>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					`
-				);
-			});
+							`
+						);
+
+						for (const toxicity of toxicityFound) {
+							if (toxicity === 'identity_attack') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+												<strong>Identity Attack</strong> - You're discriminating against somebody based on one's gender, race, religion, and etc. Example: "Chritianity is stupid." My recommendation: "I want some explanation on this."
+											</p>
+										`
+									);
+							} else if (toxicity === 'insult') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Insult</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							} else if (toxicity === 'obscene') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Obscene</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							} else if (toxicity === 'severe_toxicity') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Severe Toxicity</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							} else if (toxicity === 'sexual_explicit') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Sexual Explicit</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							} else if (toxicity === 'threat') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Threat</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							} else if (toxicity === 'toxicity') {
+								$('.chatThread .messageContainer .messageContent')
+									.last()
+									.append(
+										`<p>
+											<strong>Toxicity</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+										</p>
+									`
+									);
+							}
+						}
+
+						$('.chatThread .messageContainer .messageContent')
+							.last()
+							.append(`<p>Please keep these in mind and try again!</p>`);
+
+						$('.chatThread').scrollTop($('.chatThread').height() + 500);
+					}
+				});
 		});
 	}
 });
-
-// `You could be ‘cyberbullying’ someone, as it is ${toxicityType}.`
-
-// Explanation of toxicity
-// identity attack:
-// insult:
-// obscene:
-// severe toxicity:
-// sexual explicit:
-// threat:
-// toxicity:
-
-// Bad example
-// Better recommendation
-// Give it another thought and try again.

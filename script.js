@@ -1,4 +1,22 @@
 $(document).ready(function() {
+	moment().format('YYYY MM DD');
+
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+		apiKey: 'AIzaSyDF46s9F6cXATUwKrFrZ9CnNIoC5J2aHuo',
+		authDomain: 'safe-chat-slack-bot.firebaseapp.com',
+		databaseURL: 'https://safe-chat-slack-bot.firebaseio.com',
+		projectId: 'safe-chat-slack-bot',
+		storageBucket: 'safe-chat-slack-bot.appspot.com',
+		messagingSenderId: '862536808731',
+		appId: '1:862536808731:web:c1e278684c424cfcfefbbe'
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+
+	// Initialize FireStore
+	const db = firebase.firestore();
+
 	///================================///
 	// Event listener for collapsing sidebar
 	///================================///
@@ -20,13 +38,29 @@ $(document).ready(function() {
 	///================================///
 
 	$('.send').on('click', function(e) {
-		// Store input value to variable called message
 		e.preventDefault();
 		const message = $('.inputMessage').val();
 		console.log(message);
 
-		// Call classifyMessage() with store variable
 		classifyMessage(message);
+
+		$('.inputMessage').val('');
+	});
+
+	///================================///
+	// Event listener for enter key in text area
+	///================================///
+
+	$('.inputMessage').on('keypress', function(e) {
+		if (e.key === 'Enter' || e.keyCode === '13') {
+			e.preventDefault();
+			const message = $('.inputMessage').val();
+			console.log(message);
+
+			classifyMessage(message);
+
+			$('.inputMessage').val('');
+		}
 	});
 
 	///================================///
@@ -39,6 +73,104 @@ $(document).ready(function() {
 		// Call getRandomSentence()
 		getRandomSentence();
 	});
+
+	///===================///
+	// Initialize messages
+	///===================///
+
+	getMessages();
+
+	function getMessages() {
+		db.collection('channels')
+			.doc('Q1rCOpoYwfhqdZXNrhSx')
+			.get()
+			.then(function(doc) {
+				console.log(doc.data().messages);
+
+				const messages = doc.data().messages;
+
+				for (const message of messages) {
+					console.log(message);
+					db.collection('messages')
+						.doc(message)
+						.get()
+						.then(function(doc) {
+							console.log(doc.data());
+
+							const { author, content, date } = doc.data();
+
+							const newDate = date.toDate();
+
+							$('.chatThread').append(
+								`
+									<div class="messageContainer">
+										<img
+											src="images/orlando-diggs.png"
+											alt="Photo of a blonde woman with a black hat"
+											class="avatar"
+										/>
+										<div class="message">
+											<div class="messageInfo">
+												<p class="user">${author}</p>
+												<p class="time">${moment(newDate).format('llll')}</p>
+											</div>
+											<div class="messageContent">
+												<p>
+													${content}
+												</p>
+											</div>
+										</div>
+									</div>
+								`
+							);
+						})
+						.catch(function(error) {
+							const errorCode = error.code;
+							const errorMessage = error.message;
+						});
+				}
+			})
+			.catch(function(error) {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+			});
+
+		// db.collection('messages')
+		// 	.('channel', '==', 'Q1rCOpoYwfhqdZXNrhSx')
+		// 	.get()
+		// 	.then(function(querySnapshot) {
+		// 		querySnapshot.forEach(function(doc) {
+		// 			// doc.data() is never undefined for query doc snapshots
+		// 			console.log(doc.id, ' => ', doc.data());
+
+		// 			$('.chatThread').append(
+		// 				`
+		// 					<div class="messageContainer">
+		// 						<img
+		// 							src="images/orlando-diggs.png"
+		// 							alt="Photo of a blonde woman with a black hat"
+		// 							class="avatar"
+		// 						/>
+		// 						<div class="message">
+		// 							<div class="messageInfo">
+		// 								<p class="user">Aron Tolentino</p>
+		// 								<p class="time">11:45PM</p>
+		// 							</div>
+		// 							<div class="messageContent">
+		// 								<p>
+		// 									${doc.data().content}
+		// 								</p>
+		// 							</div>
+		// 						</div>
+		// 					</div>
+		// 				`
+		// 			);
+		// 		});
+		// 	})
+		// 	.catch(function(error) {
+		// 		console.log('Error getting documents: ', error);
+		// 	});
+	}
 
 	///=========================================================================================///
 	// Function that takes in a random number and makes the right API call (getRandomSentence())
@@ -114,6 +246,36 @@ $(document).ready(function() {
 					console.log(toxicityFound);
 
 					if (toxicityFound.length === 0) {
+						db.collection('messages')
+							.add({
+								author: 'Aron Tolentino',
+								date: new Date(),
+								content: message
+							})
+							.then(function(docRef) {
+								console.log('Document successfully written!');
+
+								db.collection('channels')
+									.doc('Q1rCOpoYwfhqdZXNrhSx')
+									.update({
+										messages: firebase.firestore.FieldValue.arrayUnion(
+											docRef.id
+										)
+									})
+									.then(function() {
+										console.log('Messages array is updated!');
+									})
+									.catch(function(error) {
+										const errorCode = error.code;
+										const errorMessage = error.message;
+
+										errorHandling(errorMessage);
+									});
+							})
+							.catch(function(error) {
+								console.error('Error writing document: ', error);
+							});
+
 						$('.chatThread').append(
 							`
 								<div class="messageContainer">
@@ -125,11 +287,11 @@ $(document).ready(function() {
 									<div class="message">
 										<div class="messageInfo">
 											<p class="user">Aron Tolentino</p>
-											<p class="time">11:45PM</p>
+											<p class="time">${moment(new Date()).format('llll')}</p>
 										</div>
 										<div class="messageContent">
 											<p>
-												${messages[0]}
+												${message}
 											</p>
 										</div>
 									</div>
@@ -137,7 +299,7 @@ $(document).ready(function() {
 							`
 						);
 
-						$('.chatThread').scrollTop($('.chatThread').height() + 500);
+						$('.chatThread').scrollTop($('.chatThread').height() + 1000);
 					} else {
 						$('.chatThread').append(
 							`
@@ -236,7 +398,7 @@ $(document).ready(function() {
 							.last()
 							.append(`<p>Please keep these in mind and try again!</p>`);
 
-						$('.chatThread').scrollTop($('.chatThread').height() + 500);
+						$('.chatThread').scrollTop($('.chatThread').height() + 1000);
 					}
 				});
 		});

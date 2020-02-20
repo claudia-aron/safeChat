@@ -97,7 +97,7 @@ $(document).ready(function() {
 						.then(function(doc) {
 							console.log(doc.data());
 
-							const { author, content, date } = doc.data();
+							const { author, content, date, avatarImg } = doc.data();
 
 							const newDate = date.toDate();
 
@@ -105,7 +105,7 @@ $(document).ready(function() {
 								`
 									<div class="messageContainer">
 										<img
-											src="images/orlando-diggs.png"
+											src="${avatarImg}"
 											alt="Photo of a blonde woman with a black hat"
 											class="avatar"
 										/>
@@ -123,6 +123,8 @@ $(document).ready(function() {
 									</div>
 								`
 							);
+
+							$('.chatThread').scrollTop($('.chatThread').height() + 1000);
 						})
 						.catch(function(error) {
 							const errorCode = error.code;
@@ -134,42 +136,6 @@ $(document).ready(function() {
 				const errorCode = error.code;
 				const errorMessage = error.message;
 			});
-
-		// db.collection('messages')
-		// 	.('channel', '==', 'Q1rCOpoYwfhqdZXNrhSx')
-		// 	.get()
-		// 	.then(function(querySnapshot) {
-		// 		querySnapshot.forEach(function(doc) {
-		// 			// doc.data() is never undefined for query doc snapshots
-		// 			console.log(doc.id, ' => ', doc.data());
-
-		// 			$('.chatThread').append(
-		// 				`
-		// 					<div class="messageContainer">
-		// 						<img
-		// 							src="images/orlando-diggs.png"
-		// 							alt="Photo of a blonde woman with a black hat"
-		// 							class="avatar"
-		// 						/>
-		// 						<div class="message">
-		// 							<div class="messageInfo">
-		// 								<p class="user">Aron Tolentino</p>
-		// 								<p class="time">11:45PM</p>
-		// 							</div>
-		// 							<div class="messageContent">
-		// 								<p>
-		// 									${doc.data().content}
-		// 								</p>
-		// 							</div>
-		// 						</div>
-		// 					</div>
-		// 				`
-		// 			);
-		// 		});
-		// 	})
-		// 	.catch(function(error) {
-		// 		console.log('Error getting documents: ', error);
-		// 	});
 	}
 
 	///=========================================================================================///
@@ -234,7 +200,7 @@ $(document).ready(function() {
 						const toxicityProbability =
 							prediction.results[0].probabilities[1] * 100;
 
-						if (toxicityProbability > 20) {
+						if (toxicityProbability > 15) {
 							toxicityFound.push(toxicityType);
 						}
 						console.log(`${toxicityType}: ${toxicityProbability}%`);
@@ -246,47 +212,61 @@ $(document).ready(function() {
 					console.log(toxicityFound);
 
 					if (toxicityFound.length === 0) {
-						db.collection('messages')
-							.add({
-								author: 'Aron Tolentino',
-								date: new Date(),
-								content: message
-							})
-							.then(function(docRef) {
-								console.log('Document successfully written!');
+						$.ajax({
+							url: 'https://randomuser.me/api/',
+							dataType: 'json',
+							success: function(data) {
+								return data;
+							}
+						}).then(function(data) {
+							console.log(data.results[0]);
 
-								db.collection('channels')
-									.doc('Q1rCOpoYwfhqdZXNrhSx')
-									.update({
-										messages: firebase.firestore.FieldValue.arrayUnion(
-											docRef.id
-										)
-									})
-									.then(function() {
-										console.log('Messages array is updated!');
-									})
-									.catch(function(error) {
-										const errorCode = error.code;
-										const errorMessage = error.message;
+							const name = `${data.results[0].name.first} ${data.results[0].name.last}`;
 
-										errorHandling(errorMessage);
-									});
-							})
-							.catch(function(error) {
-								console.error('Error writing document: ', error);
-							});
+							const avatarImg = data.results[0].picture.thumbnail;
 
-						$('.chatThread').append(
-							`
+							db.collection('messages')
+								.add({
+									author: name,
+									date: new Date(),
+									content: message,
+									avatarImg: avatarImg
+								})
+								.then(function(docRef) {
+									console.log('Document successfully written!');
+
+									db.collection('channels')
+										.doc('Q1rCOpoYwfhqdZXNrhSx')
+										.update({
+											messages: firebase.firestore.FieldValue.arrayUnion(
+												docRef.id
+											)
+										})
+										.then(function() {
+											console.log('Messages array is updated!');
+										})
+										.catch(function(error) {
+											const errorCode = error.code;
+											const errorMessage = error.message;
+
+											errorHandling(errorMessage);
+										});
+								})
+								.catch(function(error) {
+									console.error('Error writing document: ', error);
+								});
+
+							$('.chatThread').append(
+								`
 								<div class="messageContainer">
 									<img
-										src="images/orlando-diggs.png"
+										src="${avatarImg}"
 										alt="Photo of a blonde woman with a black hat"
 										class="avatar"
 									/>
 									<div class="message">
 										<div class="messageInfo">
-											<p class="user">Aron Tolentino</p>
+											<p class="user">${name}</p>
 											<p class="time">${moment(new Date()).format('llll')}</p>
 										</div>
 										<div class="messageContent">
@@ -297,9 +277,10 @@ $(document).ready(function() {
 									</div>
 								</div>
 							`
-						);
+							);
 
-						$('.chatThread').scrollTop($('.chatThread').height() + 1000);
+							$('.chatThread').scrollTop($('.chatThread').height() + 1000);
+						});
 					} else {
 						$('.chatThread').append(
 							`
@@ -312,7 +293,7 @@ $(document).ready(function() {
 									<div class="message">
 										<div class="messageInfo">
 											<p class="user">SafeChat Bot</p>
-											<p class="time">11:45PM</p>
+											<p class="time">${moment(new Date()).format('llll')}</p>
 										</div>
 										<div class="messageContent">
 											<p>
@@ -333,7 +314,7 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-												<strong>Identity Attack</strong> - You're discriminating against somebody based on one's gender, race, religion, and etc. Example: "Chritianity is stupid." My recommendation: "I want some explanation on this."
+												<strong>Identity Attack</strong> - You're discriminating against somebody based on one's gender, race, religion, and etc. Example: "Chritianity is stupid." My recommendation: "I want some explanation on this.""
 											</p>
 										`
 									);
@@ -342,7 +323,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Insult</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Insult</strong> - You're making a inflammatory comment towards somebody.
+											Example: "You are an idiot." My recommendation: "Let's figure it out together."
 										</p>
 									`
 									);
@@ -351,7 +333,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Obscene</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Obscene</strong> - Your message includes swear or curse words.
+											Example: "That's fucking bad." My recommendation: "That's horrible."
 										</p>
 									`
 									);
@@ -360,7 +343,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Severe Toxicity</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Severe Toxicity</strong> - Your message sounds hateful, aggressive or disrespectful, and you're likely to cause somebody to leave the discussion.
+											Example: "I'll flay you alive, you fucking faggot." My recommendation: "Let's take a moment to cool down, then we can calmly sort things out."
 										</p>
 									`
 									);
@@ -369,7 +353,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Sexual Explicit</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Sexual Explicit</strong> - You're referring to sexual acts or mentioning body parts in a sexual way.
+											Example: "Your legs are so sexy." My recommendation: "You look great today."
 										</p>
 									`
 									);
@@ -378,7 +363,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Threat</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Threat</strong> - Your message shows a wish or intention for pain, injury or violence against somebody.
+											Example: "I'll destroy your life." My recommendation: "Let's discuss how we can solve the issue."
 										</p>
 									`
 									);
@@ -387,7 +373,8 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Toxicity</strong> - You're making a inflammatory comment towards somebody. Example: "You are an idiot." My recommendation: "Let's figure it out together."
+											<strong>Toxicity</strong> - Your message sounds rude, disrespectful or unreasonable, and you may cause somebody to leave the discussion.
+											Example: "You're short-tempered and stupid." My recommendation: "It's okay. We all make mistakes."
 										</p>
 									`
 									);

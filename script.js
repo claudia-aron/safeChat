@@ -61,6 +61,7 @@ safeChat.messageFilter = function(message) {
 	let botMessage = ``;
 	if (message.toLowerCase() === '@safechat help') {
 		botMessage = `
+			<p><em>"${message}"</em></p>
 			<p>
 				Hi there! I'm SafeChat. I was created by Claudia and Aron to help people have less toxic conversations.
 			</p>

@@ -216,44 +216,6 @@ body {
 }
 
 /***********************************/
-/************** HEADER *************/
-/***********************************/
-
-header {
-	background-color: #393e41;
-	color: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1.5rem;
-}
-
-.logo {
-	width: 3.5rem;
-	margin-right: 0.5rem;
-}
-
-h1 {
-	font-size: 2.2rem;
-}
-
-h2 {
-	font-size: 2.2rem;
-}
-
-h3 {
-	font-size: 1.3rem;
-	text-transform: uppercase;
-}
-
-p,
-input,
-textarea,
-button {
-	font-size: 1.4rem;
-}
-
-/***********************************/
 /********* SIDEBAR SECTION *********/
 /***********************************/
 

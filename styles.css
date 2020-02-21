@@ -315,6 +315,11 @@ button {
 	display: flex;
 }
 
+.examples img {
+	border-radius: 5px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
 .screenShot {
 	width: 50%;
 	height: auto;
@@ -460,7 +465,7 @@ footer {
 
 .messageContainer {
 	display: flex;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
 }
 
 .messageInfo {
@@ -598,5 +603,126 @@ button:focus {
 @media only screen and (min-width: 426px) {
 	.sidebar {
 		display: block;
+	}
+}
+
+@media (max-width: 1250px) {
+	.name h1 {
+		font-size: 3.7rem;
+	}
+
+	.top {
+		padding: 20rem 3rem;
+	}
+}
+
+@media (max-width: 950px) {
+	.slogan {
+		font-size: 2.2rem;
+	}
+
+	.botMessage {
+		position: relative;
+		right: 2rem;
+		top: 19.5rem;
+	}
+
+	.avatarContainer {
+		width: 13rem;
+	}
+
+	.landingAvatar {
+		width: 6rem;
+		height: 6rem;
+	}
+}
+
+@media (max-width: 730px) {
+	body {
+		height: auto;
+	}
+
+	.top {
+		flex-direction: column;
+		padding-top: 8rem;
+		margin-bottom: 7rem;
+	}
+
+	.landingHeader {
+		width: 80vw;
+		text-align: center;
+	}
+
+	.name {
+		justify-content: center;
+	}
+
+	.toDemoContainer {
+		text-align: center;
+	}
+
+	.landingMain {
+		width: 80vw;
+		display: flex;
+		padding: 3rem;
+		margin: 3rem;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.screenShot {
+		height: auto;
+		width: 50%;
+	}
+
+	.botMessage {
+		height: 40%;
+		width: 40%;
+		position: relative;
+		top: 10rem;
+	}
+
+	.avatarContainer {
+		margin: 0;
+	}
+
+	footer {
+		position: relative;
+	}
+}
+
+@media (max-width: 560px) {
+	.top {
+		flex-direction: column;
+		margin: 0;
+		height: 97vh;
+		justify-content: center;
+	}
+
+	.name {
+		margin-bottom: 7rem;
+	}
+
+	.slogan {
+		margin-bottom: 14rem;
+		line-height: 3rem;
+	}
+
+	.landingMain {
+		display: none;
+	}
+}
+
+@media (max-width: 440px) {
+	.landingHeader {
+		width: 95vw;
+	}
+
+	.name h1 {
+		font-size: 2.9rem;
+	}
+
+	.slogan {
+		font-size: 1.9rem;
 	}
 }

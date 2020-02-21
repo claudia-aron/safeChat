@@ -65,6 +65,9 @@ safeChat.messageFilter = function(message) {
 				Hi there! I'm SafeChat. I was created by Claudia and Aron to help people have less toxic conversations.
 			</p>
 			<p>
+				I detect whether text contains toxic content such as threatening language, insults, obscenities, identity-based hate, or sexually explicit language.
+			</p>
+			<p>
 				I'm powered by <a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity">Tensorflow.js's toxicity classifier</a> which was trained on 2 million comments labeled for toxicity.
 			</p>
 			<p>

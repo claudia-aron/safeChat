@@ -23,7 +23,11 @@ safeChat.initEventListeners = function() {
 		const message = $('.inputMessage').val();
 		console.log(message);
 
-		safeChat.classifyMessage(message);
+		if (message.toLowerCase() === '@safechat help') {
+			safeChat.appendHelp();
+		} else if (message !== '' && message !== '@safechat help') {
+			safeChat.classifyMessage(message);
+		}
 
 		$('.inputMessage').val('');
 	});
@@ -37,7 +41,11 @@ safeChat.initEventListeners = function() {
 			const message = $('.inputMessage').val();
 			console.log(message);
 
-			safeChat.classifyMessage(message);
+			if (message.toLowerCase() === '@safechat help') {
+				safeChat.appendHelp();
+			} else if (message !== '' && message !== '@safechat help') {
+				safeChat.classifyMessage(message);
+			}
 
 			$('.inputMessage').val('');
 		}
@@ -309,6 +317,41 @@ safeChat.initMessages = function() {
 };
 
 ///=====================================================///
+// SafeChat help message
+///=====================================================///
+
+safeChat.appendHelp = function() {
+	$('.chatThread').append(
+		`
+			<div class="messageContainer">
+				<img
+					src="images/safechat-avatar.png"
+					alt="Photo of a blonde woman with a black hat"
+					class="avatar"
+				/>
+				<div class="message">
+					<div class="messageInfo">
+						<p class="user">SafeChat Bot</p>
+						<p class="time">${moment(new Date()).format('llll')}</p>
+					</div>
+					<div class="messageContent">
+						<p>
+							Hi there! I'm SafeChat. I was created by Claudia and Aron to help people have less toxic conversations.
+						</p>
+						<p>
+							I'm powered by <a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity">Tensorflow.js's toxicity classifier</a> which was trained on 2 million comments labeled for toxicity.
+						</p>
+						<p>
+							If you want to know more about how I detect toxicity, you can <a href="https://github.com/conversationai/conversationai.github.io/blob/master/crowdsourcing_annotation_schemes/toxicity_with_subattributes.md">learn more here</a>.
+						</p>
+					</div>
+				</div>
+			</div>
+		`
+	);
+};
+
+///=====================================================///
 // Takes in a random number and makes the right API call
 ///=====================================================///
 
@@ -506,7 +549,7 @@ safeChat.appendMessage = function(toxicityFound, message) {
 				<div class="messageContainer">
 					<img
 						src="${avatarImg}"
-						alt="Photo of a blonde woman with a black hat"
+						alt="User avatar"
 						class="avatar"
 					/>
 					<div class="message">

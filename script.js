@@ -111,13 +111,23 @@ safeChat.messageFilter = function(message) {
 		`;
 
 		safeChat.botTemplate(botMessage);
+	} else if (message.toLowerCase() === '@safechat do you love everyone?') {
+		botMessage = `
+			<p><em>"${message}"</em></p>
+			<p>
+				Yes. I do love you all. You are all great but I am the best? 
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
 	} else if (
 		message !== '' &&
 		message.toLowerCase() !== '@safechat help' &&
 		message.toLowerCase() !== '@safechat what do we think of joey?' &&
 		message.toLowerCase() !== '@safechat what do we think of colin?' &&
 		message.toLowerCase() !== '@safechat is pizza a salad?' &&
-		message.toLowerCase() !== '@safechat who is the best cohort 25 group?'
+		message.toLowerCase() !== '@safechat who is the best cohort 25 group?' &&
+		message.toLowerCase() !== '@safechat do you love everyone?'
 	) {
 		safeChat.classifyMessage(message);
 	}

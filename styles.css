@@ -204,10 +204,6 @@ html {
 	font-family: 'Lato', sans-serif;
 }
 
-body {
-	display: flex;
-}
-
 .avatar {
 	width: 3.5rem;
 	height: 3.5rem;
@@ -251,6 +247,118 @@ input,
 textarea,
 button {
 	font-size: 1.4rem;
+}
+
+/***********************************/
+/********** LANDING PAGE ***********/
+/***********************************/
+
+.top {
+	display: flex;
+	align-items: center;
+	height: 97vh;
+	padding: 20rem 10rem;
+}
+
+.landingHeader {
+	padding: 1.5rem;
+	width: 50vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.name {
+	display: flex;
+	align-items: center;
+	margin-bottom: 3rem;
+}
+
+.logo {
+	width: 3.5rem;
+	height: 3.5rem;
+	margin-right: 0.5rem;
+}
+
+.name h1 {
+	font-size: 5rem;
+	padding-left: 0.5rem;
+}
+
+.slogan {
+	font-size: 3rem;
+	margin-bottom: 7rem;
+}
+
+.toDemo {
+	font-size: 1.7rem;
+	border-radius: 0.5rem;
+	background-color: #cb78ea;
+	color: #fff;
+	width: 20rem;
+	text-align: center;
+	padding: 1rem;
+	transition: all 0.2s linear;
+}
+
+.toDemo:hover,
+.toDemo:focus {
+	background-color: #8000b0;
+}
+
+.landingMain {
+	width: 50vw;
+	padding-top: 10rem;
+}
+
+.examples {
+	display: flex;
+}
+
+.screenShot {
+	width: 50%;
+	height: auto;
+	z-index: 1;
+}
+
+.botMessage {
+	width: 50%;
+	height: 30%;
+	z-index: 2;
+	position: relative;
+	right: 2.5rem;
+	top: 29rem;
+}
+
+.avatarContainer {
+	display: flex;
+	flex-wrap: wrap;
+	width: 20rem;
+	z-index: 3;
+	margin: 10rem;
+	position: relative;
+}
+
+.landingAvatar {
+	width: 8rem;
+	height: 8rem;
+}
+
+/***********************************/
+/************** FOOTER *************/
+/***********************************/
+
+footer {
+	background-color: #8000b0;
+	color: #fff;
+	width: 100vw;
+	height: 3vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+	font-size: 1.3rem;
 }
 
 /***********************************/

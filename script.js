@@ -4,21 +4,21 @@ safeChat.initEventListeners = function() {
 	///=====================================///
 	// Event listener for collapsing sidebar
 	///=====================================///
-	$('.toggle').on('click', function() {
+	$('.container').on('click', '.toggle', function() {
 		$('.sideBar').toggle();
 	});
 
 	///=========================================///
 	// Event listener for closing opened sidebar
 	///=========================================///
-	$('.closeMenu').on('click', function() {
+	$('.container').on('click', '.closeMenu', function() {
 		$('.sideBar').toggle();
 	});
 
 	///================================///
 	// Event listener for submit button
 	///================================///
-	$('.send').on('click', function(e) {
+	$('.container').on('click', '.send', function(e) {
 		e.preventDefault();
 		const message = $('.inputMessage').val();
 		console.log(message);
@@ -31,7 +31,7 @@ safeChat.initEventListeners = function() {
 	///=========================================///
 	// Event listener for enter key in text area
 	///=========================================///
-	$('.inputMessage').on('keypress', function(e) {
+	$('.container').on('keypress', '.inputMessage', function(e) {
 		if (e.key === 'Enter' || e.keyCode === '13') {
 			e.preventDefault();
 			const message = $('.inputMessage').val();
@@ -47,12 +47,174 @@ safeChat.initEventListeners = function() {
 	// Event listener for generate button
 	///==================================///
 
-	$('.generate').on('click', function(e) {
+	$('.container').on('click', '.generate', function(e) {
 		e.preventDefault();
 
 		// Call getRandomSentence()
 		getRandomSentence();
 	});
+};
+
+///=======================///
+// Initialize landing page
+///=======================///
+
+safeChat.initLanding = function() {
+	$('.container').empty();
+
+	const landingHTML = `
+		<div class="top">
+				<div class="landingHeader">
+					<div class="name">
+						<img
+							class="logo"
+							src="images/safechat-avatar.png"
+							alt="SafeChat avatar"
+						/>
+						<h1>SafeChat + Slack</h1>
+					</div>
+					<h2 class="slogan">
+						Enjoy a safe and comfortable messaging environment
+					</h2>
+					<div class="toDemoContainer">
+						<a class="toDemo" href="/#/demo">Try SafeChat</a>
+					</div>
+				</div>
+				<!-- Main -->
+				<main class="landingMain">
+					<div class="examples">
+						<img
+							class="screenShot"
+							src="images/chat.jpg"
+							alt="SafeChat screenshot"
+						/>
+						<img
+							class="botMessage"
+							src="images/safechat-bot-message.jpg"
+							alt="SafeChat Bot message to users for toxic comments"
+						/>
+					</div>
+					<div class="avatarContainer">
+						<img
+							class="landingAvatar"
+							src="images/avatar-1.png"
+							alt="red-haired woman smiling"
+						/>
+						<img
+							class="landingAvatar"
+							src="images/avatar-2.png"
+							alt="brown-haired man in a suit smiling"
+						/>
+						<img
+							class="landingAvatar"
+							src="images/avatar-3.png"
+							alt="brown-haired man with glasses smiling"
+						/>
+						<img
+							class="landingAvatar"
+							src="images/avatar-4.png"
+							alt="blonde woman smiling"
+						/>
+					</div>
+				</main>
+			</div>
+			<!-- Footer -->
+			<footer>
+				<p>© 2020 Aron Tolentino, Claudia Ahn</p>
+			</footer>
+	`;
+
+	$('.container').css('display', 'block');
+	$('.container').append(landingHTML);
+};
+
+///====================///
+// Initialize demo page
+///====================///
+
+safeChat.initDemo = function() {
+	$('.container').empty();
+
+	const demoHTML = `
+			<!-- <a href="#maincontent" class="visuallyHidden">Skip to main content</a> -->
+			<!-- Side bar -->
+			<aside class="sideBar">
+				<i class="fas fa-times closeMenu"></i>
+				<h1>Juno College</h1>
+				<!-- Channel List -->
+				<div class="channels">
+					<h3>Channel</h3>
+					<ul>
+						<li><p># general</p></li>
+						<li><p># memes</p></li>
+					</ul>
+				</div>
+				<!-- Friends List -->
+				<div class="friends">
+					<h3>Friends</h3>
+					<ul>
+						<li>
+							<img
+								src="images/orlando-diggs.png"
+								alt="Photo of a brown-haired man"
+								class="avatar"
+							/>
+							<p>Orlando Diggs</p>
+						</li>
+					</ul>
+				</div>
+				<!-- Bots List -->
+				<div class="bots">
+					<h3>Bots</h3>
+					<ul>
+						<li>
+							<img
+								src="images/safechat-avatar.png"
+								alt="Safechat icon"
+								class="avatar"
+							/>
+							<p>SafeChat</p>
+						</li>
+					</ul>
+				</div>
+			</aside>
+
+			<!-- Main -->
+			<main class="chat">
+				<!-- Chat Information: Channel Name, Search, etc. -->
+				<div class="chatInfo">
+					<i class="fas fa-arrows-alt-h toggle"></i>
+					<h2>#general</h2>
+				</div>
+				<div class="chatThread"></div>
+				<div class="chatInput">
+					<form class="chatWrapper">
+						<textarea
+							name="inputMessage"
+							class="inputMessage"
+							placeholder="What do you want to say?"
+							id=""
+							cols="30"
+							rows="2"
+						></textarea>
+						<!-- <input
+						type="text"
+						class="inputMessage"
+						placeholder="What do you want to say?"
+					/> -->
+						<div class="buttonContainer">
+							<button class="generate">Generate Message</button>
+							<button class="send">Send</button>
+						</div>
+					</form>
+				</div>
+			</main>
+	`;
+
+	$('.container').css('display', 'flex');
+	$('.container').append(demoHTML);
+
+	safeChat.initMessages();
 };
 
 ///===================///
@@ -374,8 +536,26 @@ safeChat.init = function() {
 
 	db = firebase.firestore();
 
+	// Routing
+
+	const landing = function() {
+		safeChat.initLanding();
+	};
+
+	const demo = function() {
+		safeChat.initDemo();
+	};
+
+	const routes = {
+		'/welcome': landing,
+		'/demo': demo
+	};
+
+	const router = Router(routes);
+
+	router.init('/welcome');
+
 	safeChat.initEventListeners();
-	safeChat.initMessages();
 };
 
 $(function() {

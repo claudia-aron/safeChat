@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>SafeChat</title>
-
+		<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
 		<link
 			href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap"
 			rel="stylesheet"
@@ -18,79 +18,7 @@
 		<link type="image/png" href="images/safechat-avatar.png" rel="icon" />
 	</head>
 	<body>
-		<!-- <a href="#maincontent" class="visuallyHidden">Skip to main content</a> -->
-		<!-- Side bar -->
-		<aside class="sideBar">
-			<i class="fas fa-times closeMenu"></i>
-			<h1>Juno College</h1>
-			<!-- Channel List -->
-			<div class="channels">
-				<h3>Channel</h3>
-				<ul>
-					<li><p># general</p></li>
-					<li><p># memes</p></li>
-				</ul>
-			</div>
-			<!-- Friends List -->
-			<div class="friends">
-				<h3>Friends</h3>
-				<ul>
-					<li>
-						<img
-							src="images/orlando-diggs.png"
-							alt="Photo of a brown-haired man"
-							class="avatar"
-						/>
-						<p>Orlando Diggs</p>
-					</li>
-				</ul>
-			</div>
-			<!-- Bots List -->
-			<div class="bots">
-				<h3>Bots</h3>
-				<ul>
-					<li>
-						<img
-							src="images/safechat-avatar.png"
-							alt="Safechat icon"
-							class="avatar"
-						/>
-						<p>SafeChat</p>
-					</li>
-				</ul>
-			</div>
-		</aside>
-
-		<!-- Main -->
-		<main class="chat">
-			<!-- Chat Information: Channel Name, Search, etc. -->
-			<div class="chatInfo">
-				<i class="fas fa-arrows-alt-h toggle"></i>
-				<h2>#general</h2>
-			</div>
-			<div class="chatThread"></div>
-			<div class="chatInput">
-				<form class="chatWrapper">
-					<textarea
-						name="inputMessage"
-						class="inputMessage"
-						placeholder="What do you want to say?"
-						id=""
-						cols="30"
-						rows="2"
-					></textarea>
-					<!-- <input
-						type="text"
-						class="inputMessage"
-						placeholder="What do you want to say?"
-					/> -->
-					<div class="buttonContainer">
-						<button class="generate">Generate Message</button>
-						<button class="send">Send</button>
-					</div>
-				</form>
-			</div>
-		</main>
+		<div class="container"></div>
 
 		<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>

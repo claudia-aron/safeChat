@@ -314,7 +314,7 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-												<strong>Identity Attack</strong> - You're discriminating against somebody based on one's gender, race, religion, and etc. Example: "Chritianity is stupid." My recommendation: "I want some explanation on this.""
+												<strong>Identity Attack</strong> - You're discriminating against somebody based on one's gender, race, religion, and etc. Example: "Christianity is stupid." My recommendation: "I want some explanation on this.""
 											</p>
 										`
 									);
@@ -323,7 +323,7 @@ $(document).ready(function() {
 									.last()
 									.append(
 										`<p>
-											<strong>Insult</strong> - You're making a inflammatory comment towards somebody.
+											<strong>Insult</strong> - You're making an inflammatory comment towards somebody.
 											Example: "You are an idiot." My recommendation: "Let's figure it out together."
 										</p>
 									`

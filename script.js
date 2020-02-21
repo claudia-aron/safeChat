@@ -155,11 +155,43 @@ safeChat.initDemo = function() {
 					<ul>
 						<li>
 							<img
-								src="images/orlando-diggs.png"
-								alt="Photo of a brown-haired man"
+								src="https://randomuser.me/api/portraits/thumb/men/88.jpg"
+								alt="User portrait photo"
 								class="avatar"
 							/>
-							<p>Orlando Diggs</p>
+							<p>Clifford Kelly</p>
+						</li>
+						<li>
+							<img
+								src="https://randomuser.me/api/portraits/thumb/men/90.jpg"
+								alt="User portrait photo"
+								class="avatar"
+							/>
+							<p>Holger Noack</p>
+						</li>
+						<li>
+							<img
+								src="https://randomuser.me/api/portraits/thumb/men/53.jpg"
+								alt="User portrait photo"
+								class="avatar"
+							/>
+							<p>Wilko Bernhard</p>
+						</li>
+						<li>
+							<img
+								src="https://randomuser.me/api/portraits/thumb/women/1.jpg"
+								alt="User portrait photo"
+								class="avatar"
+							/>
+							<p>Lia Nicolas</p>
+						</li>
+						<li>
+							<img
+								src="https://randomuser.me/api/portraits/thumb/women/3.jpg"
+								alt="User portrait photo"
+								class="avatar"
+							/>
+							<p>Noora Rosvoll</p>
 						</li>
 					</ul>
 				</div>
@@ -207,6 +239,9 @@ safeChat.initDemo = function() {
 							<button class="send">Send</button>
 						</div>
 					</form>
+					<div class="messageSpinner">
+						<div class="loader"></div> 
+					</div>
 				</div>
 			</main>
 	`;
@@ -337,6 +372,9 @@ function getRandomSentence() {
 ///========================================================================///
 
 safeChat.classifyMessage = function(message) {
+	$('.messageSpinner').toggle();
+	$('.messageSpinner').css('display', 'flex');
+
 	const threshold = 0.2;
 
 	toxicity.load(threshold).then(model => {
@@ -348,6 +386,7 @@ safeChat.classifyMessage = function(message) {
 				return safeChat.findToxicity(predictions);
 			})
 			.then(toxicityFound => {
+				$('.messageSpinner').toggle();
 				safeChat.appendMessage(toxicityFound, message);
 			});
 	});

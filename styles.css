@@ -441,6 +441,10 @@ footer {
 	justify-content: space-between;
 }
 
+.chatWrapper {
+	margin: 2.5rem;
+}
+
 .chatInfo {
 	border-bottom: 0.5px solid #d5d5d5;
 	padding: 3.5rem 2.5rem 2rem 2.5rem;
@@ -474,7 +478,7 @@ footer {
 }
 
 .chatInput {
-	padding: 2.5rem 2.5rem;
+	position: relative;
 }
 
 form {
@@ -511,6 +515,40 @@ button:focus {
 
 .send {
 	margin-left: 1rem;
+}
+
+/********************************/
+/******* MESSAGE SPINNER ********/
+/********************************/
+
+.messageSpinner {
+	background: #aec1ff9c;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	display: none;
+}
+
+.loader {
+	margin: 0 auto;
+	border: 7px solid #f3f3f3; /* Light grey */
+	border-top: 7px solid #8000b0; /* Blue */
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /********************************/

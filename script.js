@@ -567,9 +567,6 @@ safeChat.filterToxcity = function(toxicityFound) {
 					</p>`);
 		}
 	}
-	safeChat.appendToxicityMessage(
-		`<p>Please keep these in mind and try again!</p>`
-	);
 
 	safeChat.scrollDownChat();
 };

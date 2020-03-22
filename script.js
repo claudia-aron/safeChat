@@ -23,13 +23,7 @@ safeChat.initEventListeners = function() {
 		const message = $('.inputMessage').val();
 		console.log(message);
 
-		if (message.toLowerCase() === '@safechat help') {
-			safeChat.appendHelp();
-		} else if (message !== '' && message !== '@safechat help') {
-			safeChat.classifyMessage(message);
-		}
-
-		$('.inputMessage').val('');
+		safeChat.messageFilter(message);
 	});
 
 	///=========================================///
@@ -41,11 +35,7 @@ safeChat.initEventListeners = function() {
 			const message = $('.inputMessage').val();
 			console.log(message);
 
-			if (message.toLowerCase() === '@safechat help') {
-				safeChat.appendHelp();
-			} else if (message !== '' && message !== '@safechat help') {
-				safeChat.classifyMessage(message);
-			}
+			safeChat.messageFilter(message);
 
 			$('.inputMessage').val('');
 		}
@@ -61,6 +51,92 @@ safeChat.initEventListeners = function() {
 		// Call getRandomSentence()
 		getRandomSentence();
 	});
+};
+
+///============================///
+// Filters user input from form
+///============================///
+
+safeChat.messageFilter = function(message) {
+	let botMessage = ``;
+	if (message.toLowerCase() === '@safechat help') {
+		botMessage = `
+			<p><em>"${message}"</em></p>
+			<p>
+				Hi there! I'm SafeChat. I was created by Claudia and Aron to help people have less toxic conversations.
+			</p>
+			<p>
+				I detect whether text contains toxic content such as threatening language, insults, obscenities, identity-based hate, or sexually explicit language.
+			</p>
+			<p>
+				I'm powered by <a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity">Tensorflow.js's toxicity classifier</a> which was trained on 2 million comments labeled for toxicity.
+			</p>
+			<p>
+				If you want to know more about how I detect toxicity, you can <a href="https://github.com/conversationai/conversationai.github.io/blob/master/crowdsourcing_annotation_schemes/toxicity_with_subattributes.md">learn more here</a>.
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (message.toLowerCase() === '@safechat what do we think of joey?') {
+		botMessage = `
+			<p>"<em>${message}</em>"</p>
+			<p>
+				I like him... but I question his taste in pokemons. 
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (message.toLowerCase() === '@safechat what do we think of colin?') {
+		botMessage = `
+			<p>"<em>${message}</em>"</p>
+			<p>
+				cool cool cool COOL COOL!!!
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (message.toLowerCase() === '@safechat is pizza a salad?') {
+		botMessage = `
+			<p><em>"${message}"</em></p>
+			<p>
+				What the sh*t? Please leave me out of this conversation. This is a @Nick problem. 
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (
+		message.toLowerCase() === '@safechat who is the best cohort 25 group?'
+	) {
+		botMessage = `
+			<p><em>"${message}"</em></p>
+			<p>
+				#2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 #2 
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (message.toLowerCase() === '@safechat do you love everyone?') {
+		botMessage = `
+			<p><em>"${message}"</em></p>
+			<p>
+				Yes. I do love you all. You are all great but I am the best? 
+			</p>
+		`;
+
+		safeChat.botTemplate(botMessage);
+	} else if (
+		message !== '' &&
+		message.toLowerCase() !== '@safechat help' &&
+		message.toLowerCase() !== '@safechat what do we think of joey?' &&
+		message.toLowerCase() !== '@safechat what do we think of colin?' &&
+		message.toLowerCase() !== '@safechat is pizza a salad?' &&
+		message.toLowerCase() !== '@safechat who is the best cohort 25 group?' &&
+		message.toLowerCase() !== '@safechat do you love everyone?'
+	) {
+		safeChat.classifyMessage(message);
+	}
+
+	$('.inputMessage').val('');
 };
 
 ///=======================///
@@ -320,7 +396,7 @@ safeChat.initMessages = function() {
 // SafeChat help message
 ///=====================================================///
 
-safeChat.appendHelp = function() {
+safeChat.botTemplate = function(botMessage) {
 	$('.chatThread').append(
 		`
 			<div class="messageContainer">
@@ -335,20 +411,14 @@ safeChat.appendHelp = function() {
 						<p class="time">${moment(new Date()).format('llll')}</p>
 					</div>
 					<div class="messageContent">
-						<p>
-							Hi there! I'm SafeChat. I was created by Claudia and Aron to help people have less toxic conversations.
-						</p>
-						<p>
-							I'm powered by <a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity">Tensorflow.js's toxicity classifier</a> which was trained on 2 million comments labeled for toxicity.
-						</p>
-						<p>
-							If you want to know more about how I detect toxicity, you can <a href="https://github.com/conversationai/conversationai.github.io/blob/master/crowdsourcing_annotation_schemes/toxicity_with_subattributes.md">learn more here</a>.
-						</p>
+						${botMessage}
 					</div>
 				</div>
 			</div>
 		`
 	);
+
+	safeChat.scrollDownChat();
 };
 
 ///=====================================================///
@@ -497,9 +567,6 @@ safeChat.filterToxcity = function(toxicityFound) {
 					</p>`);
 		}
 	}
-	safeChat.appendToxicityMessage(
-		`<p>Please keep these in mind and try again!</p>`
-	);
 
 	safeChat.scrollDownChat();
 };

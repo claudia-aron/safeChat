@@ -204,10 +204,6 @@ html {
 	font-family: 'Lato', sans-serif;
 }
 
-body {
-	display: flex;
-}
-
 .avatar {
 	width: 3.5rem;
 	height: 3.5rem;
@@ -216,6 +212,164 @@ body {
 }
 
 /***********************************/
+<<<<<<< HEAD
+=======
+/************** HEADER *************/
+/***********************************/
+
+header {
+	background-color: #393e41;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5rem;
+}
+
+.logo {
+	width: 3.5rem;
+	margin-right: 0.5rem;
+}
+
+h1 {
+	font-size: 2.2rem;
+}
+
+h2 {
+	font-size: 2.2rem;
+}
+
+h3 {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+}
+
+p,
+input,
+textarea,
+button {
+	font-size: 1.4rem;
+}
+
+/***********************************/
+/********** LANDING PAGE ***********/
+/***********************************/
+
+.top {
+	display: flex;
+	align-items: center;
+	height: 97vh;
+	padding: 20rem 10rem;
+}
+
+.landingHeader {
+	padding: 1.5rem;
+	width: 50vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.name {
+	display: flex;
+	align-items: center;
+	margin-bottom: 3rem;
+}
+
+.logo {
+	width: 3.5rem;
+	height: 3.5rem;
+	margin-right: 0.5rem;
+}
+
+.name h1 {
+	font-size: 5rem;
+	padding-left: 0.5rem;
+}
+
+.slogan {
+	font-size: 3rem;
+	margin-bottom: 7rem;
+}
+
+.toDemo {
+	font-size: 1.7rem;
+	border-radius: 0.5rem;
+	background-color: #cb78ea;
+	color: #fff;
+	width: 20rem;
+	text-align: center;
+	padding: 1rem;
+	transition: all 0.2s linear;
+}
+
+.toDemo:hover,
+.toDemo:focus {
+	background-color: #8000b0;
+}
+
+.landingMain {
+	width: 50vw;
+	padding-top: 10rem;
+}
+
+.examples {
+	display: flex;
+}
+
+.examples img {
+	border-radius: 5px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.screenShot {
+	width: 50%;
+	height: auto;
+	z-index: 1;
+}
+
+.botMessage {
+	width: 50%;
+	height: 30%;
+	z-index: 2;
+	position: relative;
+	right: 2.5rem;
+	top: 29rem;
+}
+
+.avatarContainer {
+	display: flex;
+	flex-wrap: wrap;
+	width: 20rem;
+	z-index: 3;
+	margin: 10rem;
+	position: relative;
+}
+
+.landingAvatar {
+	width: 8rem;
+	height: 8rem;
+}
+
+/***********************************/
+/************** FOOTER *************/
+/***********************************/
+
+footer {
+	background-color: #8000b0;
+	color: #fff;
+	width: 100vw;
+	height: 3vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+	font-size: 1.3rem;
+}
+
+/***********************************/
+>>>>>>> 4836c4db62710e6c2d1492713ebb882aeff86499
 /********* SIDEBAR SECTION *********/
 /***********************************/
 
@@ -295,6 +449,10 @@ body {
 	justify-content: space-between;
 }
 
+.chatWrapper {
+	margin: 2.5rem;
+}
+
 .chatInfo {
 	border-bottom: 0.5px solid #d5d5d5;
 	padding: 3.5rem 2.5rem 2rem 2.5rem;
@@ -310,7 +468,7 @@ body {
 
 .messageContainer {
 	display: flex;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
 }
 
 .messageInfo {
@@ -322,13 +480,18 @@ body {
 	margin-bottom: 1rem;
 }
 
+.messageContent a:link,
+.messageContent a:visited {
+	color: #67008d;
+}
+
 .user {
 	font-weight: 700;
 	margin-right: 1rem;
 }
 
 .chatInput {
-	padding: 2.5rem 2.5rem;
+	position: relative;
 }
 
 form {
@@ -365,6 +528,40 @@ button:focus {
 
 .send {
 	margin-left: 1rem;
+}
+
+/********************************/
+/******* MESSAGE SPINNER ********/
+/********************************/
+
+.messageSpinner {
+	background: #aec1ff9c;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	display: none;
+}
+
+.loader {
+	margin: 0 auto;
+	border: 7px solid #f3f3f3; /* Light grey */
+	border-top: 7px solid #8000b0; /* Blue */
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /********************************/
@@ -409,5 +606,126 @@ button:focus {
 @media only screen and (min-width: 426px) {
 	.sidebar {
 		display: block;
+	}
+}
+
+@media (max-width: 1250px) {
+	.name h1 {
+		font-size: 3.7rem;
+	}
+
+	.top {
+		padding: 20rem 3rem;
+	}
+}
+
+@media (max-width: 950px) {
+	.slogan {
+		font-size: 2.2rem;
+	}
+
+	.botMessage {
+		position: relative;
+		right: 2rem;
+		top: 19.5rem;
+	}
+
+	.avatarContainer {
+		width: 13rem;
+	}
+
+	.landingAvatar {
+		width: 6rem;
+		height: 6rem;
+	}
+}
+
+@media (max-width: 730px) {
+	body {
+		height: auto;
+	}
+
+	.top {
+		flex-direction: column;
+		padding-top: 8rem;
+		margin-bottom: 7rem;
+	}
+
+	.landingHeader {
+		width: 80vw;
+		text-align: center;
+	}
+
+	.name {
+		justify-content: center;
+	}
+
+	.toDemoContainer {
+		text-align: center;
+	}
+
+	.landingMain {
+		width: 80vw;
+		display: flex;
+		padding: 3rem;
+		margin: 3rem;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.screenShot {
+		height: auto;
+		width: 50%;
+	}
+
+	.botMessage {
+		height: 40%;
+		width: 40%;
+		position: relative;
+		top: 10rem;
+	}
+
+	.avatarContainer {
+		margin: 0;
+	}
+
+	footer {
+		position: relative;
+	}
+}
+
+@media (max-width: 560px) {
+	.top {
+		flex-direction: column;
+		margin: 0;
+		height: 97vh;
+		justify-content: center;
+	}
+
+	.name {
+		margin-bottom: 7rem;
+	}
+
+	.slogan {
+		margin-bottom: 14rem;
+		line-height: 3rem;
+	}
+
+	.landingMain {
+		display: none;
+	}
+}
+
+@media (max-width: 440px) {
+	.landingHeader {
+		width: 95vw;
+	}
+
+	.name h1 {
+		font-size: 2.9rem;
+	}
+
+	.slogan {
+		font-size: 1.9rem;
 	}
 }

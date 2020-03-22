@@ -403,7 +403,7 @@ footer {
     }
 
     footer {
-        display: none;
+        position: initial;
     }
 }
 
